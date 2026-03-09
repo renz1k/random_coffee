@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:random_coffee/core/constants/app_constants.dart';
 import 'package:random_coffee/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:random_coffee/features/cart/presentation/cubit/cart_state.dart';
 import 'package:random_coffee/features/menu/domain/entities/product.dart';
@@ -7,6 +8,7 @@ import 'package:random_coffee/features/menu/presentation/pages/product_details_p
 import 'package:random_coffee/features/menu/presentation/widgets/product_bottom_panel.dart';
 import 'package:random_coffee/features/menu/presentation/widgets/product_image.dart';
 import 'package:random_coffee/features/menu/presentation/widgets/product_local_image_placeholder.dart';
+import 'package:random_coffee/uikit/theme/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});
@@ -16,6 +18,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
 
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
@@ -23,14 +26,16 @@ class ProductCard extends StatelessWidget {
         final quantity = cubit.getProductQuantity(product.id);
 
         return Container(
-          height: 200,
+          height: AppConstants.productCardHeight,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.white,
+            borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
+            color: isLight
+                ? theme.colorScheme.surface
+                : AppColors.textLightPrimary,
           ),
           child: Column(
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: AppConstants.paddingExtraSmall),
 
               // КАРТИНКА 100px
               GestureDetector(
@@ -42,26 +47,38 @@ class ProductCard extends StatelessWidget {
                 ),
                 child: ProductImage(
                   product: product,
-                  placeholder: const ProductLocalImagePlaceholder(),
-                  height: 100,
-                  color: Colors.white,
+                  placeholder: ProductLocalImagePlaceholder(
+                    backgroundColor: isLight
+                        ? theme.colorScheme.surface
+                        : AppColors.textLightPrimary,
+                  ),
+                  height: AppConstants.productCardImageHeight,
+                  color: isLight
+                      ? theme.colorScheme.surface
+                      : AppColors.textLightPrimary,
                 ),
               ),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingSmall,
+                  vertical: AppConstants.paddingTiny,
+                ),
                 child: Text(
                   product.name,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w400,
+                    color: isLight
+                        ? AppColors.textLightPrimary
+                        : AppColors.textDarkSecondary,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
 
-              const SizedBox(height: 8),
+              const SizedBox(height: AppConstants.paddingSmall),
 
               // НИЖНЯЯ ПАНЕЛЬ
               ProductBottomPanel(

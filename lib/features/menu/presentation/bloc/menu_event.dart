@@ -1,4 +1,4 @@
-part of 'menu_bloc.dart';
+﻿part of 'menu_bloc.dart';
 
 sealed class MenuEvent extends Equatable {
   const MenuEvent();
@@ -10,3 +10,4 @@ sealed class MenuEvent extends Equatable {
 final class MenuEventLoadRequested extends MenuEvent {}
 
 final class MenuEventRetryRequested extends MenuEvent {}
+

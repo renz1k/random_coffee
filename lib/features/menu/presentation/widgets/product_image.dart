@@ -1,6 +1,7 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:random_coffee/core/constants/app_constants.dart';
 import 'package:random_coffee/features/menu/domain/entities/product.dart';
 import 'package:random_coffee/uikit/theme/app_colors.dart';
 
@@ -31,7 +32,7 @@ class _ProductImageState extends State<ProductImage> {
   void initState() {
     super.initState();
     if (widget.product.imageUrl.isNotEmpty) {
-      _timeoutTimer = Timer(const Duration(seconds: 10), () {
+      _timeoutTimer = Timer(AppConstants.imageTimeout, () {
         if (mounted && !_imageLoaded) {
           setState(() => _showPlaceholder = true);
         }
@@ -47,6 +48,9 @@ class _ProductImageState extends State<ProductImage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
+
     if (_showPlaceholder || widget.product.imageUrl.isEmpty) {
       return SizedBox(
         height: widget.height,
@@ -73,8 +77,12 @@ class _ProductImageState extends State<ProductImage> {
             return Container(
               height: widget.height,
               color: widget.color,
-              child: const Center(
-                child: CircularProgressIndicator(color: AppColors.primaryColor),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: isLight
+                      ? AppColors.primaryLight
+                      : AppColors.primaryDark,
+                ),
               ),
             );
           },

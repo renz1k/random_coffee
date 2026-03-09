@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
   const Product({
@@ -18,5 +18,13 @@ class Product extends Equatable {
   final int categoryId;
 
   @override
-  List<Object?> get props => [id, name, description, price, imageUrl, categoryId];
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    price,
+    imageUrl,
+    categoryId,
+  ];
 }
+

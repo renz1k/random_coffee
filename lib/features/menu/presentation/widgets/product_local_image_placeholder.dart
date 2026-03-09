@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:random_coffee/core/constants/app_constants.dart';
 
 class ProductLocalImagePlaceholder extends StatelessWidget {
   final double height;
@@ -6,7 +7,7 @@ class ProductLocalImagePlaceholder extends StatelessWidget {
 
   const ProductLocalImagePlaceholder({
     super.key,
-    this.height = 100,
+    this.height = AppConstants.productCardImageHeight,
     this.backgroundColor,
   });
 
@@ -26,3 +27,4 @@ class ProductLocalImagePlaceholder extends StatelessWidget {
     );
   }
 }
+

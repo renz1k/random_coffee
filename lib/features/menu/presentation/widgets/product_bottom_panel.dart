@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:random_coffee/core/constants/app_constants.dart';
+import 'package:random_coffee/uikit/icons/app_icon.dart';
+import 'package:random_coffee/uikit/icons/app_icons.dart';
 import 'package:random_coffee/uikit/theme/app_colors.dart';
 
 class ProductBottomPanel extends StatelessWidget {
@@ -21,7 +24,12 @@ class ProductBottomPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+        padding: const EdgeInsets.fromLTRB(
+          AppConstants.paddingLarge,
+          0,
+          AppConstants.paddingLarge,
+          AppConstants.paddingExtraSmall,
+        ),
         child: quantity == 0
             ? InitialPanel(price: price, onPressedPlus: onPressedPlus)
             : QuantityButtons(
@@ -49,44 +57,60 @@ class QuantityButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
 
     return Row(
       children: [
         Container(
-          height: 40,
-          width: 40,
+          height: AppConstants.buttonHeight,
+          width: AppConstants.buttonHeight,
           decoration: BoxDecoration(
-            color: AppColors.buttonColor,
+            color: isLight
+                ? AppColors.controlLight
+                : AppColors.controlQuantityDark,
             shape: BoxShape.circle,
           ),
           child: IconButton(
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             onPressed: decrement,
-            icon: const Icon(Icons.remove, color: Colors.black, size: 24),
+            icon: AppIcon(
+              AppIcons.minus,
+              color: isLight ? AppColors.backgroundDark : Colors.white,
+              size: AppConstants.iconSizeMinus,
+            ),
           ),
         ),
+
         Expanded(
           child: Text(
             quantity.toString(),
             textAlign: TextAlign.center,
             style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
+              color: isLight
+                  ? AppColors.textLightPrimary
+                  : AppColors.textDarkSecondary,
             ),
           ),
         ),
+
         Container(
-          height: 40,
-          width: 40,
+          height: AppConstants.buttonHeight,
+          width: AppConstants.buttonHeight,
           decoration: BoxDecoration(
-            color: AppColors.buttonColor,
+            color: isLight
+                ? AppColors.controlLight
+                : AppColors.controlQuantityDark,
             shape: BoxShape.circle,
           ),
           child: IconButton(
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
             onPressed: increment,
-            icon: const Icon(Icons.add, color: Colors.black, size: 24),
+            icon: AppIcon(
+              AppIcons.plus,
+              color: isLight ? AppColors.backgroundDark : Colors.white,
+              size: AppConstants.iconSizeTiny,
+            ),
           ),
         ),
       ],
@@ -108,6 +132,7 @@ class InitialPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
 
     return Row(
       children: [
@@ -116,23 +141,29 @@ class InitialPanel extends StatelessWidget {
             child: Text(
               '$price ₽',
               style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w500,
+                color: isLight
+                    ? AppColors.textLightPrimary
+                    : AppColors.textDarkSecondary,
               ),
             ),
           ),
         ),
+
         Container(
-          height: 40,
-          width: 40,
+          height: AppConstants.buttonHeight,
+          width: AppConstants.buttonHeight,
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            color: isLight ? AppColors.primaryLight : AppColors.primaryDark,
             shape: BoxShape.circle,
           ),
           child: IconButton(
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
             onPressed: onPressedPlus,
-            icon: const Icon(Icons.add, color: Colors.white, size: 24),
+            icon: const AppIcon(
+              AppIcons.plus,
+              color: Colors.white,
+              size: AppConstants.iconSizeTiny,
+            ),
           ),
         ),
       ],

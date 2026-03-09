@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'product_model.dart';
 
@@ -24,3 +24,4 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'image_url': instance.imageUrl,
       'category_id': instance.categoryId,
     };
+
