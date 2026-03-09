@@ -1,4 +1,4 @@
-package com.example.random_coffee
+package ru.caravanlabs.randomcoffee
 
 import io.flutter.embedding.android.FlutterActivity
 

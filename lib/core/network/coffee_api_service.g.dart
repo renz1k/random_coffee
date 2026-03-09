@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'coffee_api_service.dart';
 
@@ -327,3 +327,4 @@ class _CoffeeApiService implements CoffeeApiService {
 }
 
 // dart format on
+
