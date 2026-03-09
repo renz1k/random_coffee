@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'cart_model.dart';
 
@@ -17,3 +17,4 @@ Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
   'items': instance.items,
   'total': instance.total,
 };
+

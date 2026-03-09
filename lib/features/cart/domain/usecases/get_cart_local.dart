@@ -3,13 +3,13 @@ import 'package:random_coffee/core/error/failures.dart';
 import 'package:random_coffee/features/cart/domain/entities/cart.dart';
 import 'package:random_coffee/features/cart/domain/repositories/cart_repository.dart';
 
-class ClearCart {
-  const ClearCart(this.repository);
+class GetCartLocal {
+  const GetCartLocal(this.repository);
 
   final CartRepository repository;
 
   Future<Either<Failure, Cart>> call() async {
-    return await repository.clearCart();
+    return await repository.loadCartLocal();
   }
 }
 

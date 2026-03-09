@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 
 import 'cart_item.dart';
 
@@ -18,3 +18,4 @@ class Cart extends Equatable {
   @override
   List<Object?> get props => [items, total];
 }
+

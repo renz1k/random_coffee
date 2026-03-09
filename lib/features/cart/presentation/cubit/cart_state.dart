@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 import 'package:random_coffee/features/cart/domain/entities/cart.dart';
 
 abstract class CartState extends Equatable {
@@ -33,3 +33,4 @@ class CartError extends CartState {
   @override
   List<Object?> get props => [error];
 }
+

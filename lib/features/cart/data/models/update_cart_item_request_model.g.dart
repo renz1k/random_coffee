@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'update_cart_item_request_model.dart';
 
@@ -13,3 +13,4 @@ UpdateCartItemRequestModel _$UpdateCartItemRequestModelFromJson(
 Map<String, dynamic> _$UpdateCartItemRequestModelToJson(
   UpdateCartItemRequestModel instance,
 ) => <String, dynamic>{'quantity': instance.quantity};
+

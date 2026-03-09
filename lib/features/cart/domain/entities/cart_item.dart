@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 import 'package:random_coffee/features/menu/domain/entities/product.dart';
 
 class CartItem extends Equatable {
@@ -24,3 +24,4 @@ class CartItem extends Equatable {
   @override
   List<Object?> get props => [product, quantity, totalPrice];
 }
+

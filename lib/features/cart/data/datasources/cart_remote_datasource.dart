@@ -1,5 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:random_coffee/core/error/exceptions.dart';
+﻿import 'package:random_coffee/core/error/exceptions.dart';
 import 'package:random_coffee/core/network/coffee_api_service.dart';
 import 'package:random_coffee/features/cart/data/models/add_to_cart_request_model.dart';
 import 'package:random_coffee/features/cart/data/models/cart_model.dart';
@@ -25,12 +24,9 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   @override
   Future<CartModel> getCart() async {
     try {
-      final result = await _apiService.getCart();
-      return result;
-    } on DioException catch (e) {
-      throw ServerException(_getErrorMessage(e));
+      return await _apiService.getCart();
     } catch (e) {
-      throw ServerException('Failed to load cart: $e');
+      throw ServerException('[ОШИБКА] Ошибка получения корзины: $e');
     }
   }
 
@@ -42,10 +38,8 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
         quantity: quantity,
       );
       return await _apiService.addToCart(request);
-    } on DioException catch (e) {
-      throw ServerException(_getErrorMessage(e));
     } catch (e) {
-      throw ServerException('Failed to add product: $e');
+      throw ServerException('[ОШИБКА] Ошибка добавления в корзину: $e');
     }
   }
 
@@ -54,10 +48,8 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
     try {
       final request = UpdateCartItemRequestModel(quantity: quantity);
       return await _apiService.updateCartItem(productId, request);
-    } on DioException catch (e) {
-      throw ServerException(_getErrorMessage(e));
     } catch (e) {
-      throw ServerException('Failed to update cart item: $e');
+      throw ServerException('[ОШИБКА] Ошибка обновления товара: $e');
     }
   }
 
@@ -65,10 +57,8 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   Future<CartModel> removeFromCart(int productId) async {
     try {
       return await _apiService.removeFromCart(productId);
-    } on DioException catch (e) {
-      throw ServerException(_getErrorMessage(e));
     } catch (e) {
-      throw ServerException('Failed to remove product: $e');
+      throw ServerException('[ОШИБКА] Ошибка удаления из корзины: $e');
     }
   }
 
@@ -76,20 +66,8 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   Future<CartModel> clearCart() async {
     try {
       return await _apiService.clearCart();
-    } on DioException catch (e) {
-      throw ServerException(_getErrorMessage(e));
     } catch (e) {
-      throw ServerException('Failed to clear cart: $e');
+      throw ServerException('[ОШИБКА] Ошибка очистки корзины: $e');
     }
-  }
-
-  String _getErrorMessage(DioException e) {
-    if (e.response?.statusCode == 404) {
-      return e.response?.data['detail'] ?? 'Не найдено';
-    }
-    if (e.response?.statusCode == 400) {
-      return e.response?.data['detail'] ?? 'Ошибка запроса';
-    }
-    return 'Ошибка сервера';
   }
 }
