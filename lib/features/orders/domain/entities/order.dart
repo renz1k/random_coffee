@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 import 'package:random_coffee/features/cart/domain/entities/cart_item.dart';
 
 class Order extends Equatable {
@@ -24,3 +24,4 @@ class Order extends Equatable {
   @override
   List<Object?> get props => [id, items, total, status];
 }
+

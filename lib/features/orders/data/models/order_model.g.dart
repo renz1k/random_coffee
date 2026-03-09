@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'order_model.dart';
 
@@ -22,3 +22,4 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       'total': instance.total,
       'status': instance.status,
     };
+

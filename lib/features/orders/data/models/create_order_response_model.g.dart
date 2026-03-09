@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'create_order_response_model.dart';
 
@@ -23,3 +23,4 @@ Map<String, dynamic> _$CreateOrderResponseModelToJson(
   'order': instance.order,
   'message': instance.message,
 };
+

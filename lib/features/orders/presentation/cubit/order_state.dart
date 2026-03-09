@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 import 'package:random_coffee/features/orders/domain/entities/order.dart';
 
 abstract class OrderState extends Equatable {
@@ -33,3 +33,4 @@ class OrderError extends OrderState {
   @override
   List<Object?> get props => [message];
 }
+
