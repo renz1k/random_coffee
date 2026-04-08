@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+﻿import 'package:dio/dio.dart';
 import 'package:random_coffee/core/constants/api_endpoints.dart';
 import 'package:random_coffee/features/cart/data/models/add_to_cart_request_model.dart';
 import 'package:random_coffee/features/cart/data/models/cart_model.dart';
@@ -46,7 +46,8 @@ abstract class CoffeeApiService {
   @DELETE('${ApiEndpoints.cartItems}/{product_id}')
   Future<CartModel> removeFromCart(@Path('product_id') int productId);
 
-  // ЗАКАЗЫ
+  // Р—РђРљРђР—Р«
   @POST(ApiEndpoints.orders)
   Future<CreateOrderResponseModel> createOrder();
 }
+

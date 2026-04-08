@@ -1,4 +1,4 @@
-abstract class Failure {
+﻿abstract class Failure {
   const Failure(this.message);
 
   final String message;
@@ -15,3 +15,4 @@ class CacheFailure extends Failure {
 class ValidationFailure extends Failure {
   const ValidationFailure(super.message);
 }
+

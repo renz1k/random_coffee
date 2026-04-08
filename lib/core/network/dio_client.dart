@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+﻿import 'package:dio/dio.dart';
 import 'package:random_coffee/core/constants/api_endpoints.dart';
 
 class DioClient {
@@ -7,14 +7,14 @@ class DioClient {
   DioClient() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: ApiEndpoints.baseUrl, //TODO Вынести в .env
-        connectTimeout: const Duration(seconds: 15), //TODO убрать эту строку
-        receiveTimeout: const Duration(seconds: 15), //TODO убрать эту строку
-        sendTimeout: const Duration(seconds: 15), //TODO убрать эту строку
+        baseUrl: ApiEndpoints.baseUrl,
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 15),
+        sendTimeout: const Duration(seconds: 15),
       ),
     );
 
-    // TODO потом убрать
+    // TODO Убрать
     _dio.interceptors.add(
       LogInterceptor(
         requestBody: true,
@@ -24,6 +24,5 @@ class DioClient {
       ),
     );
   }
-
   Dio get dio => _dio;
 }

@@ -1,4 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+﻿// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'add_to_cart_request_model.dart';
 
@@ -19,3 +19,4 @@ Map<String, dynamic> _$AddToCartRequestModelToJson(
   'product_id': instance.productId,
   'quantity': instance.quantity,
 };
+

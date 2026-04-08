@@ -1,4 +1,4 @@
-part of 'menu_bloc.dart';
+﻿part of 'menu_bloc.dart';
 
 sealed class MenuState extends Equatable {
   const MenuState();
@@ -40,3 +40,4 @@ final class MenuFailure extends MenuState {
   @override
   List<Object?> get props => [error];
 }
+

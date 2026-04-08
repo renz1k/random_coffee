@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:random_coffee/core/constants/app_constants.dart';
 import 'package:random_coffee/features/menu/domain/entities/category.dart';
 import 'package:random_coffee/uikit/theme/app_colors.dart';
 
@@ -21,36 +22,53 @@ class CategoryTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
 
     return SizedBox(
-      height: 29,
+      height: AppConstants.categoryTabHeight,
       child: ListView.builder(
         controller: scrollController,
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.only(left: 16, right: 300),
+        padding: const EdgeInsets.only(
+          left: AppConstants.paddingMedium,
+          right: 300,
+        ),
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
           final isSelected = category.id == selectedCategoryId;
 
           return Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: const EdgeInsets.only(right: AppConstants.spacingSmall),
             child: GestureDetector(
               key: categoryButtonKeys[category.id],
               onTap: () => onCategoryTap(category.id, index),
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                duration: AppConstants.animationDuration,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingMedium,
+                ),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primaryColor : Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  color: isSelected
+                      ? (isLight
+                            ? AppColors.primaryLight
+                            : AppColors.primaryDark)
+                      : (isLight
+                            ? theme.colorScheme.surface
+                            : AppColors.textLightPrimary),
+                  borderRadius: BorderRadius.circular(
+                    AppConstants.radiusExtraLarge,
+                  ),
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   category.name,
                   style: theme.textTheme.labelLarge?.copyWith(
-                    color: isSelected ? Colors.white : Colors.black87,
-                    fontWeight: FontWeight.w600,
+                    color: isSelected
+                        ? (AppColors.textDarkPrimary)
+                        : (isLight
+                              ? AppColors.textLightPrimary
+                              : AppColors.textDarkSecondary),
                   ),
                 ),
               ),

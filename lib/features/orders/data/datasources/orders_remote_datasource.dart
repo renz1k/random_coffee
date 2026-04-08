@@ -1,3 +1,5 @@
+﻿import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:random_coffee/core/error/exceptions.dart';
 import 'package:random_coffee/core/network/coffee_api_service.dart';
@@ -29,20 +31,22 @@ class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
 
       return order;
     } on DioException catch (e) {
-      throw ServerException(_getErrorMessage(e));
+      _logError(e);
+      throw const ServerException('Возникла ошибка при заказе');
     } catch (e) {
       if (e is ServerException) rethrow;
-      throw ServerException('Failed to create order: $e');
+      throw const ServerException('Возникла ошибка при заказе');
     }
   }
 
-  String _getErrorMessage(DioException e) {
-    if (e.response?.statusCode == 404) {
-      return e.response?.data['detail'] ?? 'Не найдено';
+  void _logError(DioException e) {
+    log('[ОШИБКА] Ошибка создания заказа:');
+    log('[ОШИБКА] Тип: ${e.type}');
+    log('[ОШИБКА] Сообщение: ${e.message}');
+    if (e.response != null) {
+      log('[ОШИБКА] Статус: ${e.response?.statusCode}');
+      log('[ОШИБКА] Данные: ${e.response?.data}');
     }
-    if (e.response?.statusCode == 400) {
-      return e.response?.data['detail'] ?? 'Ошибка запроса';
-    }
-    return 'Ошибка сервера';
   }
 }
+

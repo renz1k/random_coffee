@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:random_coffee/core/constants/app_constants.dart';
 import 'package:random_coffee/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:random_coffee/features/cart/presentation/cubit/cart_state.dart';
 import 'package:random_coffee/features/cart/presentation/widgets/cart_bottom_sheet.dart';
+import 'package:random_coffee/uikit/icons/app_icon.dart';
+import 'package:random_coffee/uikit/icons/app_icons.dart';
 import 'package:random_coffee/uikit/theme/app_colors.dart';
 
 class CartButton extends StatelessWidget {
@@ -10,6 +13,9 @@ class CartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
+
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         final isEmpty = state is! CartLoaded || state.cart.isEmpty;
@@ -24,33 +30,35 @@ class CartButton extends StatelessWidget {
 
         return Positioned(
           bottom: 0,
-          right: 16,
+          right: AppConstants.paddingMedium,
           child: GestureDetector(
             onTap: () => CartBottomSheet.show(context),
             child: Container(
-              width: 105,
-              height: 56,
+              width: AppConstants.cartButtonWidth,
+              height: AppConstants.cartButtonHeight,
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.circular(16),
+                color: isLight ? AppColors.primaryLight : AppColors.primaryDark,
+                borderRadius: BorderRadius.circular(AppConstants.radiusLarge),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.only(
+                  left: AppConstants.paddingMedium,
+                ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.shopping_cart_outlined,
+                    const AppIcon(
+                      AppIcons.cart,
                       color: Colors.white,
-                      weight: 40,
-                      size: 24,
+                      size: AppConstants.iconSizeSmall,
                     ),
-                    const SizedBox(width: 8),
+
+                    const SizedBox(width: AppConstants.paddingSmall),
+
                     Text(
                       '${state.cart.total}₽',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelLarge?.copyWith(color: Colors.white),
                     ),
                   ],
                 ),

@@ -20,6 +20,9 @@ dependencies:
   get_it: ^9.2.1
   dartz: 0.10.1
   scrollable_positioned_list: ^0.3.8
+  flutter_dotenv: ^6.0.0
+  shared_preferences: ^2.5.3
+  flutter_svg: ^2.0.10
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +32,7 @@ dev_dependencies:
   retrofit_generator: ^10.2.3
   json_serializable: ^6.13.0
   hive_ce_generator: ^1.11.1
+  mockito: ^5.4.4
 
 
 
@@ -37,3 +41,14 @@ flutter:
 
   assets:
     - lib/assets/images/
+    - lib/assets/icons/
+    - .env
+  
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: lib/assets/fonts/OpenSans-Regular.ttf
+          weight: 400
+        - asset: lib/assets/fonts/OpenSans-SemiBold.ttf
+          weight: 600
+          

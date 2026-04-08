@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+﻿import 'package:json_annotation/json_annotation.dart';
 import 'package:random_coffee/features/cart/data/models/cart_item_model.dart';
 import 'package:random_coffee/features/orders/domain/entities/order.dart';
 
@@ -29,3 +29,4 @@ class OrderModel {
     status: status,
   );
 }
+

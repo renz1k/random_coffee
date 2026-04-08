@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+﻿import 'package:dartz/dartz.dart';
 import 'package:random_coffee/core/error/failures.dart';
 import 'package:random_coffee/features/orders/domain/entities/order.dart'
     as order_entity;
@@ -13,3 +13,4 @@ class CreateOrder {
     return repository.createOrder();
   }
 }
+

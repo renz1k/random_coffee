@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+﻿import 'package:json_annotation/json_annotation.dart';
 import 'package:random_coffee/features/cart/domain/entities/cart_item.dart';
 import 'package:random_coffee/features/menu/data/models/product_model.dart';
 
@@ -27,3 +27,4 @@ class CartItemModel {
     totalPrice: totalPrice,
   );
 }
+

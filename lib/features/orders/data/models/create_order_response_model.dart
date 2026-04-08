@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+﻿import 'package:json_annotation/json_annotation.dart';
 import 'package:random_coffee/features/orders/data/models/order_model.dart';
 
 part 'create_order_response_model.g.dart';
@@ -20,3 +20,4 @@ class CreateOrderResponseModel {
 
   Map<String, dynamic> toJson() => _$CreateOrderResponseModelToJson(this);
 }
+

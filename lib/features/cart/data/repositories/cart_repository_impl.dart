@@ -1,14 +1,19 @@
+﻿import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:random_coffee/core/error/exceptions.dart';
 import 'package:random_coffee/core/error/failures.dart';
+import 'package:random_coffee/core/utils/sync_logger.dart';
+import 'package:random_coffee/features/cart/data/datasources/cart_local_datasource.dart';
 import 'package:random_coffee/features/cart/data/datasources/cart_remote_datasource.dart';
 import 'package:random_coffee/features/cart/domain/entities/cart.dart';
 import 'package:random_coffee/features/cart/domain/repositories/cart_repository.dart';
 
 class CartRepositoryImpl implements CartRepository {
   final CartRemoteDataSource _remoteDataSource;
+  final CartLocalDataSource _localDataSource;
 
-  CartRepositoryImpl(this._remoteDataSource);
+  CartRepositoryImpl(this._remoteDataSource, this._localDataSource);
 
   static const int _maxAttempts = 2;
 
@@ -16,6 +21,8 @@ class CartRepositoryImpl implements CartRepository {
   Future<Either<Failure, Cart>> getCart() async {
     return _retryRequest<Cart>(() async {
       final cartModel = await _remoteDataSource.getCart();
+      // Сохраняем полученные данные в локальное хранилище
+      await _localDataSource.saveCart(cartModel);
       return cartModel.toEntity();
     });
   }
@@ -29,6 +36,8 @@ class CartRepositoryImpl implements CartRepository {
 
     return _retryRequest<Cart>(() async {
       final cartModel = await _remoteDataSource.addToCart(productId, quantity);
+      // Сохраняем в локальное хранилище
+      await _localDataSource.saveCart(cartModel);
       return cartModel.toEntity();
     });
   }
@@ -53,6 +62,8 @@ class CartRepositoryImpl implements CartRepository {
         productId,
         quantity,
       );
+      // Сохраняем в локальное хранилище
+      await _localDataSource.saveCart(cartModel);
       return cartModel.toEntity();
     });
   }
@@ -61,6 +72,8 @@ class CartRepositoryImpl implements CartRepository {
   Future<Either<Failure, Cart>> removeProduct(int productId) async {
     return _retryRequest<Cart>(() async {
       final cartModel = await _remoteDataSource.removeFromCart(productId);
+      // Сохраняем в локальное хранилище
+      await _localDataSource.saveCart(cartModel);
       return cartModel.toEntity();
     });
   }
@@ -69,8 +82,42 @@ class CartRepositoryImpl implements CartRepository {
   Future<Either<Failure, Cart>> clearCart() async {
     return _retryRequest<Cart>(() async {
       final cartModel = await _remoteDataSource.clearCart();
+      // Сохраняем в локальное хранилище
+      await _localDataSource.saveCart(cartModel);
       return cartModel.toEntity();
     });
+  }
+
+  /// Загружает корзину из локального хранилища
+  @override
+  Future<Either<Failure, Cart>> loadCartLocal() async {
+    try {
+      final cartModel = await _localDataSource.loadCart();
+      if (cartModel != null) {
+        SyncLogger.logCartSync(
+          SyncState.success,
+          SyncSource.local,
+          'Корзина загружена из локального хранилища',
+          itemCount: cartModel.items.length,
+        );
+        return Right(cartModel.toEntity());
+      }
+      log('[ПРЕДУПРЕЖДЕНИЕ] Нет корзины в локальном хранилище, возвращаю пустую');
+      return const Right(Cart());
+    } catch (e) {
+      SyncLogger.logCartSync(
+        SyncState.failure,
+        SyncSource.local,
+        'Ошибка загрузки корзины из локального хранилища',
+        error: e,
+      );
+      return const Right(Cart()); // Возвращаем пустую корзину как fallback
+    }
+  }
+
+  /// Очищает корзину из локального хранилища
+  Future<void> clearCartLocal() async {
+    await _localDataSource.clearCart();
   }
 
   Future<Either<Failure, T>> _retryRequest<T>(
@@ -93,6 +140,7 @@ class CartRepositoryImpl implements CartRepository {
       }
     }
 
-    return const Left(ServerFailure('Unknown error'));
+    return const Left(ServerFailure('Неизвестная ошибка'));
   }
 }
+

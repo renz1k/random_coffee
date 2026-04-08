@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+﻿import 'package:json_annotation/json_annotation.dart';
 
 part 'add_to_cart_request_model.g.dart';
 
@@ -16,3 +16,4 @@ class AddToCartRequestModel {
       _$AddToCartRequestModelFromJson(json);
   Map<String, dynamic> toJson() => _$AddToCartRequestModelToJson(this);
 }
+

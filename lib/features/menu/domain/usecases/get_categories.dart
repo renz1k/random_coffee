@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+﻿import 'package:dartz/dartz.dart';
 import 'package:random_coffee/core/error/failures.dart';
 import 'package:random_coffee/features/menu/domain/entities/category.dart';
 import 'package:random_coffee/features/menu/domain/repositories/menu_repository.dart';
@@ -12,3 +12,4 @@ class GetCategories {
     return await repository.getCategories();
   }
 }
+
